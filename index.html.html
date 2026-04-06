@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Slide Foto + Game</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    overflow: hidden;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+.slide {
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
+.active {
+    display: flex;
+}
+
+img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: white;
+    color: #ff4d6d;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.love {
+    position: absolute;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="slide active">
+    <img src="./foto1.jpeg">
+    <h2>Hai kamu 😍</h2>
+    <button onclick="nextSlide()">Next ➡</button>
+</div>
+
+<div class="slide">
+    <img src="./foto2.png">
+    <h2>
+    Congrats 1000 followers 🥺❤️ <br>
+    Seneng banget liat kamu makin rame yang support <br>
+    Semangat terus ya, aku selalu dukung kamu! ❤️
+    </h2>
+    <button onclick="prevSlide()">⬅ Back</button>
+    <button onclick="nextSlide()">Next ➡</button>
+</div>
+
+<div class="slide">
+    <img src="./foto3.jpeg">
+    <h2>maaf telat  ngucapin nya hehehehe 💖</h2>
+    <button onclick="prevSlide()">⬅ Back</button>
+</div>
+
+<script>
+let current = 0;
+let slides = document.querySelectorAll(".slide");
+
+function showSlide(i){
+    slides.forEach(s => s.classList.remove("active"));
+    slides[i].classList.add("active");
+}
+
+function nextSlide(){
+    let a = Math.floor(Math.random() * 10) + 1;
+    let b = Math.floor(Math.random() * 10) + 1;
+
+    let jawab = prompt("Berapa " + a + " x " + b + "?");
+
+    if(jawab == a*b){
+        if(current < slides.length - 1){
+            current++;
+            showSlide(current);
+        }
+    } else {
+        alert("Salah 😜");
+    }
+}
+
+function prevSlide(){
+    if(current > 0){
+        current--;
+        showSlide(current);
+    }
+}
+
+// animasi love
+setInterval(()=>{
+    let el = document.createElement("div");
+    el.innerHTML = "❤️";
+    el.className = "love";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (20 + Math.random()*20) + "px";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 5000);
+}, 300);
+</script>
+
+</body>
+</html>
